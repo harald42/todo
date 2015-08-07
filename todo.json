@@ -3,8 +3,121 @@
 		"title": "Todo",
 		"meta_title": "Example application",
 		"meta_description": "Meteor Kitchen - example application",
-		"theme": "bootswatch-flatly",
-		"collections": [],
+		"theme": "bootswatch-paper",
+		"collections": [
+			{
+				"name": "Todos",
+				"type": "collection",
+				"owner_field": "ownerid",
+				"roles_allowed_to_read": [
+					"owner"
+				],
+				"roles_allowed_to_update": [
+					"owner"
+				],
+				"roles_allowed_to_delete": [
+					"owner"
+				],
+				"fields": [
+					{
+						"name": "title",
+						"title": "Title",
+						"type": "string",
+						"required": true,
+						"default": "",
+						"min": "",
+						"max": "",
+						"format": "",
+						"searchable": true,
+						"sortable": true,
+						"exportable": false,
+						"input": "text",
+						"input_template": "",
+						"input_group_class": "",
+						"input_items": [],
+						"lookup_query": {
+							"name": "",
+							"collection": "",
+							"find_one": false,
+							"filter": {},
+							"options": {},
+							"params": []
+						},
+						"lookup_key": "",
+						"lookup_field": "",
+						"display_helper": "",
+						"array_item_type": "",
+						"crud_fields": [],
+						"crud_insert_title": "",
+						"file_collection": "",
+						"file_container": "",
+						"join_collection": "",
+						"join_collection_field": "",
+						"join_container": "",
+						"join_fields": [],
+						"show_in_dataview": true,
+						"show_in_insert_form": true,
+						"show_in_update_form": true,
+						"show_in_read_only_form": true
+					},
+					{
+						"name": "completed",
+						"title": "Completed",
+						"type": "bool",
+						"default": "false",
+						"input": "checkbox",
+						"min": "",
+						"max": "",
+						"required": false,
+						"format": "",
+						"searchable": true,
+						"sortable": true,
+						"exportable": false,
+						"input_template": "",
+						"input_group_class": "",
+						"input_items": [],
+						"lookup_query": {
+							"name": "",
+							"collection": "",
+							"find_one": false,
+							"filter": {},
+							"options": {},
+							"params": []
+						},
+						"lookup_key": "",
+						"lookup_field": "",
+						"display_helper": "",
+						"array_item_type": "",
+						"crud_fields": [],
+						"crud_insert_title": "",
+						"file_collection": "",
+						"file_container": "",
+						"join_collection": "",
+						"join_collection_field": "",
+						"join_container": "",
+						"join_fields": [],
+						"show_in_dataview": true,
+						"show_in_insert_form": true,
+						"show_in_update_form": true,
+						"show_in_read_only_form": true
+					}
+				],
+				"roles_allowed_to_insert": [],
+				"roles_allowed_to_download": [],
+				"before_insert_code": "",
+				"before_update_code": "",
+				"before_remove_code": "",
+				"after_insert_code": "",
+				"after_update_code": "",
+				"after_remove_code": "",
+				"before_insert_source_file": "",
+				"before_update_source_file": "",
+				"before_remove_source_file": "",
+				"after_insert_source_file": "",
+				"after_update_source_file": "",
+				"after_remove_source_file": ""
+			}
+		],
 		"public_zone": {
 			"navbar_class": "navbar-inverse navbar-fixed-top",
 			"pages": [
@@ -13,11 +126,11 @@
 					"components": [
 						{
 							"name": "home_jumbotron",
-							"title": "Example application",
+							"title": "Todo Application",
 							"type": "jumbotron",
-							"text": "<b>This <a href=\"https://www.meteor.com\" target=\"_blank\">Meteor</a> application is made with <a href=\"http://www.meteorkitchen.com\" target=\"_blank\">meteor-kitchen</a> without manual coding.</b><br />It demonstrates how to create application with login, register and forgot password functions.<br />Source code (input file for generator) is <a href=\"https://github.com/perak/kitchen-examples/tree/master/example-accounts\" target=\"_blank\">here</a>.",
+							"text": "<b>This is a simple todo application.</b><br />You can login, add a todo and so on<br />Have Fun :-)",
 							"button_title": "Continue &raquo;",
-							"button_route": "login",
+							"button_route": "register",
 							"dest_selector": "",
 							"dest_position": "",
 							"class": "",
@@ -237,6 +350,7 @@
 							"url": "",
 							"target": "",
 							"class": "",
+							"items_container_class": "",
 							"icon_class": "",
 							"items": []
 						}
@@ -257,6 +371,7 @@
 					},
 					"components": [],
 					"template_rendered_code": "",
+					"items_container_class": "",
 					"scroll_spy_selector": ""
 				},
 				{
@@ -271,6 +386,7 @@
 							"url": "",
 							"target": "",
 							"class": "",
+							"items_container_class": "",
 							"icon_class": "",
 							"items": []
 						},
@@ -281,6 +397,7 @@
 							"url": "",
 							"target": "",
 							"class": "",
+							"items_container_class": "",
 							"icon_class": "",
 							"items": []
 						}
@@ -301,23 +418,219 @@
 					},
 					"components": [],
 					"template_rendered_code": "",
+					"items_container_class": "",
 					"scroll_spy_selector": ""
 				}
 			],
 			"type": "zone",
+			"components": [],
 			"container_class": "",
-			"layout": ""
+			"layout": "",
+			"footer_class": ""
 		},
 		"private_zone": {
 			"navbar_class": "navbar-default navbar-fixed-top",
 			"pages": [
 				{
-					"name": "home_private",
-					"title": "Welcome {{userFullName}}!",
+					"name": "todos",
 					"type": "page",
+					"components": [
+						{
+							"name": "view",
+							"text_if_empty": "Nothing to do yet!",
+							"insert_route": "todos.insert",
+							"edit_route": "todos.edit",
+							"type": "data_view",
+							"query": {
+								"name": "todo_list",
+								"collection": "Todos",
+								"find_one": false,
+								"filter": {},
+								"options": {},
+								"params": []
+							},
+							"edit_route_params": [
+								{
+									"name": "id",
+									"value": "this._id"
+								}
+							],
+							"dest_selector": "",
+							"dest_position": "",
+							"class": "",
+							"title": "",
+							"title_icon_class": "",
+							"events_code": "",
+							"helpers_code": "",
+							"components": [],
+							"template_rendered_code": "",
+							"text_if_not_found": "",
+							"details_route": "",
+							"delete_route": "",
+							"insert_route_params": [],
+							"details_route_params": [],
+							"delete_route_params": [],
+							"insert_button_title": "",
+							"views": [],
+							"fields": []
+						}
+					],
+					"pages": [
+						{
+							"name": "insert",
+							"title": "New Todo",
+							"type": "page",
+							"query": {
+								"name": "",
+								"collection": "",
+								"find_one": false,
+								"filter": {},
+								"options": {},
+								"params": []
+							},
+							"components": [
+								{
+									"name": "insert_todo",
+									"mode": "insert",
+									"submit_route": "todos",
+									"cancel_route": "todos",
+									"back_route": "todos",
+									"type": "form",
+									"components": [],
+									"dest_selector": "",
+									"dest_position": "",
+									"class": "",
+									"title": "",
+									"title_icon_class": "",
+									"events_code": "",
+									"helpers_code": "",
+									"query": {
+										"name": "todos_emty",
+										"collection": "Todos",
+										"find_one": false,
+										"filter": {},
+										"options": {},
+										"params": []
+									},
+									"template_rendered_code": "",
+									"layout": "default",
+									"close_route": "",
+									"submit_code": "",
+									"cancel_code": "",
+									"submit_route_params": [],
+									"cancel_route_params": [],
+									"close_route_params": [],
+									"back_route_params": [],
+									"fields": [],
+									"hidden_fields": []
+								}
+							],
+							"template": "",
+							"custom_template": "",
+							"class": "",
+							"title_icon_class": "",
+							"events_code": "",
+							"helpers_code": "",
+							"template_rendered_code": "",
+							"meta_description": "",
+							"meta_title": "",
+							"text": "",
+							"container_class": "",
+							"route_params": [],
+							"close_route": "",
+							"close_route_params": [],
+							"back_route": "",
+							"back_route_params": [],
+							"roles": [],
+							"menus": [],
+							"pages": [],
+							"queries": [],
+							"force_yield_subpages": false,
+							"zoneless": false,
+							"parent_layout": false
+						},
+						{
+							"name": "edit",
+							"route_params": [
+								"id"
+							],
+							"back_route": "todos",
+							"type": "page",
+							"components": [
+								{
+									"name": "edit_todo",
+									"mode": "update",
+									"submit_route": "todos",
+									"cancel_route": "todos",
+									"back_route": "todos",
+									"type": "form",
+									"query": {
+										"name": "findToDo",
+										"collection": "Todos",
+										"find_one": false,
+										"filter": {
+											"_id": ":id"
+										},
+										"options": {},
+										"params": []
+									},
+									"dest_selector": "",
+									"dest_position": "",
+									"class": "",
+									"title": "",
+									"title_icon_class": "",
+									"events_code": "",
+									"helpers_code": "",
+									"components": [],
+									"template_rendered_code": "",
+									"layout": "default",
+									"close_route": "",
+									"submit_code": "",
+									"cancel_code": "",
+									"submit_route_params": [],
+									"cancel_route_params": [],
+									"close_route_params": [],
+									"back_route_params": [],
+									"fields": [],
+									"hidden_fields": []
+								}
+							],
+							"template": "",
+							"custom_template": "",
+							"class": "",
+							"title": "",
+							"title_icon_class": "",
+							"events_code": "",
+							"helpers_code": "",
+							"query": {
+								"name": "",
+								"collection": "",
+								"find_one": false,
+								"filter": {},
+								"options": {},
+								"params": []
+							},
+							"template_rendered_code": "",
+							"meta_description": "",
+							"meta_title": "",
+							"text": "",
+							"container_class": "",
+							"close_route": "",
+							"close_route_params": [],
+							"back_route_params": [],
+							"roles": [],
+							"menus": [],
+							"pages": [],
+							"queries": [],
+							"force_yield_subpages": false,
+							"zoneless": false,
+							"parent_layout": false
+						}
+					],
 					"template": "",
 					"custom_template": "",
 					"class": "",
+					"title": "",
 					"title_icon_class": "",
 					"events_code": "",
 					"helpers_code": "",
@@ -329,7 +642,6 @@
 						"options": {},
 						"params": []
 					},
-					"components": [],
 					"template_rendered_code": "",
 					"meta_description": "",
 					"meta_title": "",
@@ -342,7 +654,6 @@
 					"back_route_params": [],
 					"roles": [],
 					"menus": [],
-					"pages": [],
 					"queries": [],
 					"force_yield_subpages": false,
 					"zoneless": false,
@@ -401,7 +712,10 @@
 											"array_item_type": "",
 											"crud_fields": [],
 											"crud_insert_title": "",
+											"file_collection": "",
+											"file_container": "",
 											"join_collection": "",
+											"join_collection_field": "",
 											"join_container": "",
 											"join_fields": [],
 											"show_in_dataview": true,
@@ -439,7 +753,10 @@
 											"array_item_type": "",
 											"crud_fields": [],
 											"crud_insert_title": "",
+											"file_collection": "",
+											"file_container": "",
 											"join_collection": "",
+											"join_collection_field": "",
 											"join_container": "",
 											"join_fields": [],
 											"show_in_dataview": true,
@@ -477,7 +794,10 @@
 											"array_item_type": "",
 											"crud_fields": [],
 											"crud_insert_title": "",
+											"file_collection": "",
+											"file_container": "",
 											"join_collection": "",
+											"join_collection_field": "",
 											"join_container": "",
 											"join_fields": [],
 											"show_in_dataview": true,
@@ -515,7 +835,10 @@
 											"array_item_type": "",
 											"crud_fields": [],
 											"crud_insert_title": "",
+											"file_collection": "",
+											"file_container": "",
 											"join_collection": "",
+											"join_collection_field": "",
 											"join_container": "",
 											"join_fields": [],
 											"show_in_dataview": true,
@@ -553,7 +876,10 @@
 											"array_item_type": "",
 											"crud_fields": [],
 											"crud_insert_title": "",
+											"file_collection": "",
+											"file_container": "",
 											"join_collection": "",
+											"join_collection_field": "",
 											"join_container": "",
 											"join_fields": [],
 											"show_in_dataview": true,
@@ -591,7 +917,10 @@
 											"array_item_type": "",
 											"crud_fields": [],
 											"crud_insert_title": "",
+											"file_collection": "",
+											"file_container": "",
 											"join_collection": "",
+											"join_collection_field": "",
 											"join_container": "",
 											"join_fields": [],
 											"show_in_dataview": true,
@@ -705,6 +1034,7 @@
 									"url": "",
 									"target": "",
 									"class": "",
+									"items_container_class": "",
 									"icon_class": "",
 									"items": []
 								},
@@ -715,6 +1045,7 @@
 									"url": "",
 									"target": "",
 									"class": "",
+									"items_container_class": "",
 									"icon_class": "",
 									"items": []
 								}
@@ -736,6 +1067,7 @@
 							},
 							"components": [],
 							"template_rendered_code": "",
+							"items_container_class": "",
 							"scroll_spy_selector": ""
 						}
 					],
@@ -823,6 +1155,7 @@
 							"url": "",
 							"target": "",
 							"class": "",
+							"items_container_class": "",
 							"icon_class": "",
 							"items": []
 						}
@@ -843,6 +1176,7 @@
 					},
 					"components": [],
 					"template_rendered_code": "",
+					"items_container_class": "",
 					"scroll_spy_selector": ""
 				},
 				{
@@ -860,6 +1194,7 @@
 									"url": "",
 									"target": "",
 									"class": "",
+									"items_container_class": "",
 									"icon_class": "",
 									"items": []
 								},
@@ -870,6 +1205,7 @@
 									"url": "",
 									"target": "",
 									"class": "",
+									"items_container_class": "",
 									"icon_class": "",
 									"items": []
 								}
@@ -879,6 +1215,7 @@
 							"url": "",
 							"target": "",
 							"class": "",
+							"items_container_class": "",
 							"icon_class": ""
 						}
 					],
@@ -898,23 +1235,37 @@
 					},
 					"components": [],
 					"template_rendered_code": "",
+					"items_container_class": "",
 					"scroll_spy_selector": ""
 				}
 			],
 			"type": "zone",
+			"components": [],
 			"container_class": "",
-			"layout": ""
+			"layout": "",
+			"footer_class": ""
+		},
+		"free_zone": {
+			"type": "zone",
+			"components": [],
+			"container_class": "",
+			"menus": [],
+			"pages": [],
+			"layout": "",
+			"navbar_class": "",
+			"footer_class": ""
 		},
 		"packages": {
 			"meteor": [],
 			"mrt": []
 		},
-		"template": "bootstrap",
+		"frontend": "bootstrap3",
 		"footer_text": "",
 		"roles": [],
 		"default_role": "",
 		"use_collection2": false,
 		"login_with_password": true,
+		"send_verification_email": false,
 		"login_with_google": false,
 		"login_with_github": false,
 		"login_with_linkedin": false,
